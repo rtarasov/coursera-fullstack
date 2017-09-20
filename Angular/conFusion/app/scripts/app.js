@@ -62,4 +62,35 @@ angular.module('confusionApp',[]).controller('MenuController', ['$scope', functi
         return ($scope.tab === checkTab);
     };
 
+}]).controller('ContactController', ['$scope', function($scope) {
+            $scope.feedback = {mychannel:"", firstName:"", lastName:"", agree:false, email:"" };
+            var channels = [{value:"tel", label:"Tel."}, {value:"Email",label:"Email"}];
+            $scope.channels = channels;
+            $scope.invalidChannelSelection = false;
+}]).controller('FeedbackController', ['$scope', function($scope) {
+            $scope.sendFeedback = function() {
+                console.log($scope.feedback);
+                if ($scope.feedback.agree && ($scope.feedback.mychannel == "") && !$scope.feedback.mychannel) {
+                    $scope.invalidChannelSelection = true;
+                    console.log('incorrect');
+                } else {
+                    $scope.invalidChannelSelection = false;
+                    //the code like in exercise
+                    //$scope.feedback = {mychannel:"", firstName:"", lastName:"", agree:false, email:"" };
+                    $scope.feedback.mychannel = "";
+
+                    //the code that drops data both in the form and preview
+                    $scope.feedback.firstName = "";
+                    $scope.feedback.lastName = "";
+                    $scope.feedback.agree = false;
+                    $scope.feedback.email = "";
+                    $scope.feedback.tel.number = "";
+                    $scope.feedback.tel.areaCode = "";
+                    $scope.feedback.comments = "";
+                    //
+
+                    $scope.feedbackForm.$setPristine();
+                    console.log($scope.feedback);
+                }
+            };
 }]);
