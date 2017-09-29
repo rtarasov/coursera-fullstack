@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('confusionApp').controller('MenuController', ['$scope', 'menuFactory', function($scope, menuFactory) {
 
     $scope.dishes = menuFactory.getDishes();
