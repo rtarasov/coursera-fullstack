@@ -2,11 +2,17 @@
 
 angular.module('confusionApp').controller('MenuController', ['$scope', 'menuFactory', function($scope, menuFactory) {
 
-    $scope.dishes= [];
+    $scope.showMenu = false;
+    $scope.message = "Loading ...";
+    $scope.dishes= {};
     
     menuFactory.getDishes().then(
       function(response) {
-        $scope.dishes = response.data;
+          $scope.dishes = response.data;
+          $scope.showMenu = true;
+      },
+      function(response) {
+          $scope.message = "Error: "+response.status + " " + response.statusText;
       }
     );
   
@@ -65,11 +71,16 @@ angular.module('confusionApp').controller('MenuController', ['$scope', 'menuFact
 }]).controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory', function($scope, $stateParams, menuFactory) {
 
             $scope.dish = {};
+            $scope.showDish = false;
+            $scope.message="Loading ...";
             
             menuFactory.getDish(parseInt($stateParams.id,10)).then(
                 function(response){
                     $scope.dish = response.data;
                     $scope.showDish=true;
+                },
+                function(response) {
+                    $scope.message = "Error: "+response.status + " " + response.statusText;
                 }
             );
 
@@ -106,13 +117,18 @@ angular.module('confusionApp').controller('MenuController', ['$scope', 'menuFact
   $scope.leader = corporateFactory.getLeader(0);
   
   $scope.featured = {};
+  $scope.showFeatured = false;
+  $scope.message="Loading ...";
 
   menuFactory.getDish(0).then(
         function(response){
             $scope.featured = response.data;
-            $scope.showDish = true;
+            $scope.showFeatured = true;
+        },
+        function(response) {
+            $scope.message = "Error: "+response.status + " " + response.statusText;
         }
-  );
+    );
 
 }]).controller('AboutController', ['$scope', 'corporateFactory', function($scope, corporateFactory) {
   $scope.leaders = corporateFactory.getLeaders();
