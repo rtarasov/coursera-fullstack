@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('confusionApp',['ui.router']).config(function($stateProvider, $urlRouterProvider) {
+angular.module('confusionApp',['ui.router', 'ngResource']).config(function($stateProvider, $urlRouterProvider) {
         $stateProvider
         
             // route for the home page

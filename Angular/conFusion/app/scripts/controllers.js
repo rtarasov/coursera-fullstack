@@ -2,19 +2,9 @@
 
 angular.module('confusionApp').controller('MenuController', ['$scope', 'menuFactory', function($scope, menuFactory) {
 
-    $scope.showMenu = false;
+    $scope.showMenu = true;
     $scope.message = "Loading ...";
-    $scope.dishes= {};
-    
-    menuFactory.getDishes().then(
-      function(response) {
-          $scope.dishes = response.data;
-          $scope.showMenu = true;
-      },
-      function(response) {
-          $scope.message = "Error: "+response.status + " " + response.statusText;
-      }
-    );
+    $scope.dishes= menuFactory.getDishes().query();
   
     $scope.tab = 1;
     $scope.filtText = '';
@@ -70,19 +60,9 @@ angular.module('confusionApp').controller('MenuController', ['$scope', 'menuFact
             };
 }]).controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory', function($scope, $stateParams, menuFactory) {
 
-            $scope.dish = {};
-            $scope.showDish = false;
+            $scope.showDish = true;
             $scope.message="Loading ...";
-            
-            menuFactory.getDish(parseInt($stateParams.id,10)).then(
-                function(response){
-                    $scope.dish = response.data;
-                    $scope.showDish=true;
-                },
-                function(response) {
-                    $scope.message = "Error: "+response.status + " " + response.statusText;
-                }
-            );
+            $scope.dish = menuFactory.getDishes().get({id:parseInt($stateParams.id,10)});
 
 }]).controller('DishCommentController', ['$scope', function($scope) {
 
@@ -116,20 +96,10 @@ angular.module('confusionApp').controller('MenuController', ['$scope', 'menuFact
   $scope.promotion = menuFactory.getPromotion(0);
   $scope.leader = corporateFactory.getLeader(0);
   
-  $scope.featured = {};
-  $scope.showFeatured = false;
-  $scope.message="Loading ...";
-
-  menuFactory.getDish(0).then(
-        function(response){
-            $scope.featured = response.data;
-            $scope.showFeatured = true;
-        },
-        function(response) {
-            $scope.message = "Error: "+response.status + " " + response.statusText;
-        }
-    );
-
+$scope.showFeatured  = true;
+$scope.message="Loading ...";
+$scope.featured = menuFactory.getDishes().get({id:0});
+  
 }]).controller('AboutController', ['$scope', 'corporateFactory', function($scope, corporateFactory) {
   $scope.leaders = corporateFactory.getLeaders();
 }]);
