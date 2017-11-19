@@ -52,7 +52,7 @@ angular.module('conFusion', ['ionic', 'conFusion.controllers','conFusion.service
       }
     })
 
-   .state('app.contactus', {
+  .state('app.contactus', {
       url: '/contactus',
       views: {
         'mainContent': {
@@ -61,12 +61,21 @@ angular.module('conFusion', ['ionic', 'conFusion.controllers','conFusion.service
       }
     })
 
-    .state('app.menu', {
+  .state('app.menu', {
       url: '/menu',
       views: {
         'mainContent': {
           templateUrl: 'templates/menu.html',
           controller: 'MenuController'
+        }
+      }
+    })
+  .state('app.favorites', {
+      url: '/favorites',
+      views: {
+        'mainContent': {
+          templateUrl: 'templates/favorites.html',
+            controller:'FavoritesController'
         }
       }
     })
